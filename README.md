@@ -1,35 +1,60 @@
 ﻿# Breast Cancer Prediction (`Breast-Cancer-prediction`) — Imbalanced Clinical Classification Benchmark
 
-A supervised healthcare machine learning project (`breast-cancer-predict.ipynb`, 22 cells) benchmarking **5 classification algorithms** on `Breast_Cancer.csv`, featuring **Random Oversampling** (`imblearn`) to address class imbalance and comprehensive precision/recall/F1 evaluation.
+## Table of Contents
+- [Executive Summary & Business Utility](#executive-summary--business-utility)
+- [Visual Showcase (UI & Dashboards)](#visual-showcase-ui--dashboards)
+- [System Architecture & Layers](#system-architecture--layers)
+- [Data Model & Clinical Schema](#data-model--clinical-schema)
+- [Model Pipeline & Benchmarks](#model-pipeline--benchmarks)
+- [Getting Started](#getting-started)
+- [Business Value, ROI & Growth Opportunities](#business-value-roi--growth-opportunities)
 
 ---
 
-## 1. Executive Summary & Purpose
-In clinical diagnostics, false negatives carry severe consequences. `Breast-Cancer-prediction` builds and benchmarks multiple classifiers on diagnostic features while explicitly correcting dataset class imbalance so minority positive cases are accurately detected.
+## Executive Summary & Business Utility
+`Breast-Cancer-prediction` is a 22-cell healthcare machine learning project (`breast-cancer-predict.ipynb`) trained on **4,024 clinical oncology records** (`Breast_Cancer.csv`). Because false negatives in cancer prognosis/status prediction are unacceptable, the pipeline applies **Random Oversampling (`imblearn.over_sampling.RandomOverSampler`)** to neutralize class imbalance and benchmarks **5 classifiers** across accuracy, precision, recall, and F1-score.
 
-## 2. Pipeline Architecture & Layers
+---
+
+## Visual Showcase (UI & Dashboards)
+Exploratory & clinical visualization extracted from `breast-cancer-predict.ipynb`:
+
+![Breast Cancer Analysis Plot](./docs/images/chart_1.png)
+
+---
+
+## System Architecture & Layers
 ```mermaid
 flowchart LR
-    Data["Breast_Cancer.csv (Pandas)"] --> Enc["LabelEncoder + RandomOverSampler (imblearn)"]
-    Enc --> Split["train_test_split"]
-    Split --> Bench["LogisticRegression • RandomForest • SVC • XGBClassifier • KNN"]
-    Bench --> Eval["Accuracy • Precision • Recall • F1 • Classification Report"]
+    L1["1. Clinical Dataset (Breast_Cancer.csv • 4,024 rows)"] --> L2["2. Encoding & Balancing (LabelEncoder • RandomOverSampler)"]
+    L2 --> L3["3. 5-Model Benchmark (LogisticRegression • RandomForest • SVC • XGBoost • KNN)"]
+    L3 --> L4["4. Clinical Metrics (Accuracy • Precision • Recall • F1 • Report)"]
 ```
 
-| Layer | Tools & Methods |
+| Layer | Tools & Libraries |
 | :--- | :--- |
-| **Preprocessing & Imbalance Handling** | `LabelEncoder`, `imblearn.over_sampling.RandomOverSampler`, `train_test_split` |
-| **Exploratory Visualization** | `matplotlib.pyplot`, `seaborn` |
-| **Benchmarked Classifiers** | `LogisticRegression`, `RandomForestClassifier`, `SVC`, `XGBClassifier`, `KNeighborsClassifier` |
-| **Clinical Metrics** | `accuracy_score`, `precision_score`, `recall_score`, `f1_score`, `classification_report` |
+| **Preprocessing & Class Balancing** | `pandas`, `numpy`, `LabelEncoder`, `imblearn.over_sampling.RandomOverSampler`, `train_test_split` |
+| **Visualization** | `matplotlib.pyplot`, `seaborn` |
+| **Benchmarked Models** | `LogisticRegression`, `RandomForestClassifier`, `SVC`, `XGBClassifier`, `KNeighborsClassifier` |
+| **Evaluation** | `accuracy_score`, `precision_score`, `recall_score`, `f1_score`, `classification_report` |
 
-## 3. Getting Started
+---
+
+## Data Model & Clinical Schema
+- **Dataset**: `Breast_Cancer.csv` (**4,024 patient records**)
+- **Columns (16)**: `Age`, `Race`, `Marital Status`, `T Stage `, `N Stage`, `6th Stage`, `differentiate`, `Grade`, `A Stage`, `Tumor Size`, `Estrogen Status`, `Progesterone Status`, `Regional Node Examined`, `Reginol Node Positive`, `Survival Months`, `Status`
+
+---
+
+## Getting Started
 ```bash
 git clone https://github.com/islamsamyy/Breast-Cancer-prediction.git
 cd Breast-Cancer-prediction
 jupyter notebook breast-cancer-predict.ipynb
 ```
 
-## 4. Business Value & Growth Opportunities
-- **Clinical Triage Decision Support**: High-recall screening models assist radiologists and pathology labs in prioritizing urgent follow-ups (subject to clinical validation/regulatory approval).
-- **Explainable AI (SHAP) Integration**: Adding SHAP feature importance plots turns raw predictions into interpretable clinical risk factors for physicians.
+---
+
+## Business Value, ROI & Growth Opportunities
+- **High-Recall Clinical Triage Support**: Prioritizes minority positive cases via oversampling to minimize missed high-risk patients (for research/decision-support workflows).
+- **Explainable AI (SHAP) Upgrade**: Adding SHAP waterfall plots makes tumor stage, node positivity, and hormone-receptor contributions transparent to oncology researchers.
